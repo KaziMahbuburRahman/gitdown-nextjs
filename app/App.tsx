@@ -16,7 +16,7 @@ interface FileItem {
   };
 }
 
-const App: React.FC = () => {
+const  App: React.FC = () => {
   const [downloadLink, setDownloadLink] = useState<string>('');
   const [downloadFileName, setDownloadFileName] = useState<string>('');
   const [sizeMB, setSizeMB] = useState<string>('');
@@ -26,6 +26,14 @@ const App: React.FC = () => {
   const [warning, setWarning] = useState<boolean>(false);
   const [urlInput, setUrlInput] = useState<string>('');
   const [isImagePreloaded, setIsImagePreloaded] = useState<boolean>(false);
+
+const getData = async()=>{
+  const newData = await fetch('gitdown/api/get')
+  const jsondata = await newData.json()
+  console.log(jsondata)
+
+}
+getData()
 
   const downRepo = (url: string) => {
     setLoading(true);
