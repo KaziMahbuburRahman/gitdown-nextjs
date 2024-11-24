@@ -4,6 +4,7 @@ import LoadingIcon from '@/components/icons/LoadingIcon';
 import JSZip from 'jszip';
 import FileIcon from '@/components/icons/FileIcon';
 import DownloadIcon from '@/components/icons/DownloadIcon';
+import ReactDOM from 'react-dom';
 
 interface FileItem {
   type: 'file' | 'dir';
@@ -225,7 +226,14 @@ const App: React.FC = () => {
               className='absolute top-[36px] right-[12px] transform -translate-y-1/2 text-red-500 cursor-pointer'
               onClick={() => {
                 setUrlInput('')
-                setsizeMB(''), setLoading(false), setError(''), setWarning(''), setDownloadLink(''), setDownloadFileName(''), setData(''), setIsImagePreloaded(false)
+                setSizeMB('')
+                 setLoading(false) 
+                 setError('') 
+                 setWarning([]) 
+                 setDownloadLink('') 
+                 setDownloadFileName('') 
+                 setData([]) 
+                 setIsImagePreloaded(false)
 
               }}
             >
@@ -233,7 +241,19 @@ const App: React.FC = () => {
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"></path>
               </svg>
             </span> : sizeMB || error ?
-              (setsizeMB(''), setLoading(false), setError(''), setWarning(''), setDownloadLink(''), setDownloadFileName(''), setData(''), setIsImagePreloaded(false))
+              (
+                (()=>{
+                setSizeMB('') 
+                setLoading(false); 
+                setError('')
+                setWarning(false)
+                setDownloadLink('')
+                setDownloadFileName('') 
+                setData([])
+                setIsImagePreloaded(false)
+                return null
+              })()
+            )
               : null
           }
 
@@ -357,7 +377,7 @@ const App: React.FC = () => {
             className="fixed top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-slate-300/20"
             aria-labelledby="header-3a content-3a"
             aria-modal="true"
-            tabindex="-1"
+            tabIndex={-1}
             role="dialog"
           >
             {/*    <!-- Modal --> */}
