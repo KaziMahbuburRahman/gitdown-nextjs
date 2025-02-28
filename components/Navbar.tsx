@@ -72,7 +72,7 @@ export const Navbar = () => {
               {/*      <!-- Brand logo --> */}
               <div>
                 <button>
-                  <Link href="/gitdown/" onClick={handleScrollToTop} className={
+                  <Link href="/" onClick={handleScrollToTop} className={
                     currentPath === '/gitdown/' ? "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none lg:hover:bg-gray-100/100 p-2 lg:rounded-md"
                       :
                       "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none transition duration-300 active:scale-90 lg:hover:bg-gray-100/100 p-2 lg:rounded-md"}>TechHelpBD <strong className="text-blue-500">|</strong> GitDown</Link>
@@ -89,7 +89,7 @@ export const Navbar = () => {
                     }`}
                 >
                   <li role="none" className="flex items-stretch">
-                    <Link onClick={handleScrollToTop} href="/gitdown/"
+                    <Link onClick={handleScrollToTop} href="/"
                       className={
                         currentPath === '/gitdown/' ? "text-sky-500 lg:text-white lg:bg-sky-500 flex items-center gap-2 py-4 lg:px-3 lg:py-1 transition-colors duration-300 focus:outline-none focus-visible:outline-none  lg:rounded-lg lg:mx-5 my-1"
 
