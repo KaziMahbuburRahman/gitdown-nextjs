@@ -65,7 +65,7 @@ const Footer = () => {
                     <a className="transition-colors duration-300 hover:text-gray-100 focus:text-gray-50" href='https://techhelpbd.com/about-us' target='_blank' rel='noopener noreferrer'>About Us</a>
                   </li>
                   <li className="mb-2 leading-6">
-                    <Link className="transition-colors duration-300 hover:text-gray-100 focus:text-gray-50" href="/gitdown/contact">Contact Us</Link>
+                    <Link className="transition-colors duration-300 hover:text-gray-100 focus:text-gray-50" href="/contact">Contact Us</Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link className="transition-colors duration-300 hover:text-gray-100 focus:text-gray-50" href="/gitdown/privacy">Privacy Policy</Link>
