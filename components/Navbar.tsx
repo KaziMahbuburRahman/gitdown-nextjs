@@ -122,7 +122,7 @@ export const Navbar = () => {
                     </a>
                   </li>
                   <li role="none" className="flex items-stretch">
-                    <Link href="/gitdown/contact"
+                    <Link href="/contact"
                       role="menuitem"
                       aria-haspopup="false"
                       className={
