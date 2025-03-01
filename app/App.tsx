@@ -4,6 +4,7 @@ import FileIcon from "@/components/icons/FileIcon";
 import FolderIcon from "@/components/icons/FolderIcon";
 import LoadingIcon from "@/components/icons/LoadingIcon";
 import JSZip from "jszip";
+import Image from "next/image";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
@@ -519,9 +520,9 @@ const App: React.FC = () => {
                           JOIN OUR TELEGRAM GROUP
                         </a>
                       </div>
-                      <div align="center">
+                      <div className="text-center">
                         <a href="https://www.youtube.com/c/TechHelpBangladesh?sub_confirmation=1">
-                          <img
+                          <Image
                             alt="youtube subscribers"
                             title="Subscribe for more"
                             src="https://custom-icon-badges.demolab.com/youtube/channel/subscribers/UCpnZ8p8i65RDy1zhXajulYw?color=%23E05D44&label=Subscribe%20for%20more&logo=video&logoColor=white&style=for-the-badge&labelColor=CE4630"
@@ -656,7 +657,7 @@ const App: React.FC = () => {
                   {/*  <!-- Image --> */}
                   <figure>
                     {isImagePreloaded ? (
-                      <img
+                      <Image
                         src={`https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`}
                         alt="card image"
                         className="w-auto overflow-hidden"
