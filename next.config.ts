@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.buymeacoffee.com",
       },
+      {
+        protocol: "https",
+        hostname: "opengraph.githubassets.com",
+      },
     ],
   },
 };
