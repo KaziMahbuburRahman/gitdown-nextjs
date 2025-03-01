@@ -305,8 +305,8 @@ const App: React.FC = () => {
             <button
               type="submit"
               style={{ boxShadow: "0 5px 15px 5px rgba(34, 125, 199, .42)" }}
-              className="w-full mb-5 sm:w-auto text-xl px-10 py-5 text-center align-middle  bg-sky-600 rounded-xl hover:bg-slate-700 border-0 border-none text-white duration-300 hover:shadow-none focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none shadow-xl transition duration-300 ease-in-out"
-              onSubmit={handleButtonClick}
+              className="w-full mb-5 sm:w-auto text-xl px-10 py-5 text-center align-middle  bg-sky-600 rounded-xl hover:bg-slate-700 border-0 border-none text-white duration-300 hover:shadow-none focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none shadow-xl transition ease-in-out"
+              // onSubmit={handleButtonClick}
             >
               Download
             </button>
