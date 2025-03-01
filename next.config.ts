@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  basePath: '/gitdown',
+  basePath: "/gitdown",
   images: {
     remotePatterns: [
       {
@@ -11,11 +11,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cdn.buymeacoffee.com"
-      }
-    ]
-  }
+        hostname: "cdn.buymeacoffee.com",
+      },
+    ],
+  },
 };
-
 
 export default nextConfig;
