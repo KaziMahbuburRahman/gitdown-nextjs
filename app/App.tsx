@@ -47,7 +47,8 @@ const App: React.FC = () => {
       const [fullMatch, owner, repo, branch, folder] = match;
       setWarning(false);
 
-      const image = new Image();
+      const image = new window.Image();
+
       image.src = `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`;
       image.onload = () => {
         setIsImagePreloaded(true);
@@ -64,7 +65,7 @@ const App: React.FC = () => {
 
       const githubAPI = `${
         process.env.NEXT_PUBLIC_BASE_API
-      }/results?owner=${owner}&repo=${repo}&folder=${folder || ""}`;
+      }?owner=${owner}&repo=${repo}&folder=${folder || ""}`;
 
       fetch(githubAPI, {
         method: "GET",
@@ -659,6 +660,8 @@ const App: React.FC = () => {
                     {isImagePreloaded ? (
                       <Image
                         src={`https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`}
+                        height={500}
+                        width={500}
                         alt="card image"
                         className="w-auto overflow-hidden"
                       />
