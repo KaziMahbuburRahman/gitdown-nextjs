@@ -18,6 +18,15 @@ interface FileItem {
   };
 }
 
+declare global {
+  interface Window {
+    owner?: string;
+    repo?: string;
+    folder?: string;
+    branch?: string;
+  }
+}
+
 const App: React.FC = () => {
   const [downloadLink, setDownloadLink] = useState<string>("");
   const [downloadFileName, setDownloadFileName] = useState<string>("");
@@ -29,13 +38,6 @@ const App: React.FC = () => {
   const [urlInput, setUrlInput] = useState<string>("");
   const [isImagePreloaded, setIsImagePreloaded] = useState<boolean>(false);
 
-  // const getData = async () => {
-  //   const newData = await fetch("gitdown/api/get");
-  //   const jsondata = await newData.json();
-  //   console.log(jsondata);
-  // };
-  // getData();
-
   const downRepo = (url: string) => {
     setLoading(true);
     const match = url
@@ -43,8 +45,9 @@ const App: React.FC = () => {
       .match(/github\.com\/([^/]+)\/([^/]+)(\/tree\/[^/]+\/(.+))?/);
 
     if (match) {
+      console.log("Mathc", match);
       setUrlInput(url);
-      const [fullMatch, owner, repo, branch, folder] = match;
+      const [, owner, repo, branch, folder] = match;
       setWarning(false);
 
       const image = new window.Image();
@@ -54,10 +57,10 @@ const App: React.FC = () => {
         setIsImagePreloaded(true);
       };
 
-      (window as any).owner = owner;
-      (window as any).repo = repo;
-      (window as any).branch = branch;
-      (window as any).folder = folder;
+      window.owner = owner;
+      window.repo = repo;
+      window.branch = branch;
+      window.folder = folder;
 
       if (!folder) {
         setWarning(true);
@@ -65,7 +68,9 @@ const App: React.FC = () => {
 
       // `${process.env.BTEB_URL}/${owner}/${repo}/contents/${folder}`,
       // { headers: { "Content-Type": "application/json" } }
-      const githubAPI = `${process.env.NEXT_PUBLIC_BTEB_URL}/${owner}/${repo}/contents/${folder || ""}`;
+      const githubAPI = `${
+        process.env.NEXT_PUBLIC_BTEB_URL
+      }/${owner}/${repo}/contents/${folder || ""}`;
       // { headers: { "Content-Type": "application/json" } }`;
       console.log(process.env.NEXT_PUBLIC_BTEB_URL);
       fetch(githubAPI, {
@@ -78,6 +83,7 @@ const App: React.FC = () => {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           setData(data);
           zipFiles(data);
         })
@@ -169,13 +175,9 @@ const App: React.FC = () => {
 
         setSizeMB(`${sizeDisplay} ${sizeUnit}`);
         const downloadFileName = `${
-          (window as any).folder
-            ? (window as any).owner +
-              "_" +
-              (window as any).repo +
-              "_" +
-              (window as any).folder
-            : (window as any).owner + "_" + (window as any).repo
+          window.folder
+            ? window.owner + "_" + window.repo + "_" + window.folder
+            : window.owner + "_" + window.repo
         }.zip`;
         setDownloadLink(objectURL);
         setDownloadFileName(downloadFileName);
@@ -213,9 +215,7 @@ const App: React.FC = () => {
   };
 
   const downloadImage = async () => {
-    const imageUrl = `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${
-      (window as any).owner
-    }/${(window as any).repo}`;
+    const imageUrl = `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${window.owner}/${window.repo}`;
 
     try {
       const response = await fetch(imageUrl);
@@ -224,9 +224,7 @@ const App: React.FC = () => {
 
       const a = document.createElement("a");
       a.href = objectURL;
-      a.download = `${(window as any).owner}_${
-        (window as any).repo
-      }_thumbnail.png`;
+      a.download = `${window.owner}_${window.repo}_thumbnail.png`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -237,6 +235,7 @@ const App: React.FC = () => {
   };
 
   const [isShowing, setIsShowing] = useState<boolean>(false);
+
   return (
     <div className="mx-3">
       <div className="container m-0 bg-white min-h-screen max-w-[960px] mx-auto lg:rounded-md rounded-md p-5 lg:mb-5">
@@ -269,7 +268,7 @@ const App: React.FC = () => {
                   setSizeMB("");
                   setLoading(false);
                   setError("");
-                  setWarning([]);
+                  setWarning(false);
                   setDownloadLink("");
                   setDownloadFileName("");
                   setData([]);
@@ -317,7 +316,7 @@ const App: React.FC = () => {
             <button
               type="submit"
               style={{ boxShadow: "0 5px 15px 5px rgba(34, 125, 199, .42)" }}
-              className="w-full mb-5 sm:w-auto text-xl px-10 py-5 text-center align-middle  bg-sky-600 rounded-xl hover:bg-slate-700 border-0 border-none text-white duration-300 hover:shadow-none focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none shadow-xl transition duration-300 ease-in-out"
+              className="w-full mb-5 sm:w-auto text-xl px-10 py-5 text-center align-middle  bg-sky-600 rounded-xl hover:bg-slate-700 border-0 border-none text-white hover:shadow-none focus:outline-none focus:ring-0 focus:border-none active:outline-none active:ring-0 active:border-none shadow-xl transition duration-300 ease-in-out"
               onClick={handlePaste}
             >
               Paste
@@ -593,7 +592,7 @@ const App: React.FC = () => {
                           <FolderIcon />
                           <a
                             className="flex cursor-pointer hover:text-sky-500"
-                            onClick={() => downRepo(item?._links.html)}
+                            onClick={() => item._links?.html && downRepo(item._links.html)}
                           >
                             {" "}
                             {item.name}
@@ -660,7 +659,7 @@ const App: React.FC = () => {
                   <figure>
                     {isImagePreloaded ? (
                       <Image
-                        src={`https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`}
+                        src={`https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${window.owner}/${window.repo}`}
                         height={500}
                         width={500}
                         alt="card image"
@@ -684,7 +683,7 @@ const App: React.FC = () => {
                   {/*  <!-- Body--> */}
                   <div className="p-1 mt-5 ">
                     <p className="overflow-scroll sm:overflow-auto">
-                      {`${owner}_${repo}_thumbnail.png`}
+                      {`${window.owner}_${window.repo}_thumbnail.png`}
                     </p>
                   </div>
                   {/*  <!-- Action icon buttons --> */}
@@ -700,11 +699,11 @@ const App: React.FC = () => {
                     <button
                       onClick={() => {
                         navigator.clipboard.writeText(
-                          `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`
+                          `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${window.owner}/${window.repo}`
                         );
                         //open in new tab
                         window.open(
-                          `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${owner}/${repo}`
+                          `https://opengraph.githubassets.com/e61b97681f68c6b6893f9386c313d502fdfb7b512bdf4f187b2582bc0378b0c6/${window.owner}/${window.repo}`
                         );
                       }}
                       className="inline-flex h-11 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded px-5 text-sm font-medium  text-sky-500 outline-none bg-transparent border-none active:text-blue-500 transition duration-200 active:scale-90"
