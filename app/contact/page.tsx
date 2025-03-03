@@ -31,7 +31,7 @@ const Contact = () => {
       } else {
         setErrorMessage(true);
       }
-    } catch (error) {
+    } catch {
       setErrorMessage(true);
     }
   };
