@@ -29,12 +29,12 @@ const App: React.FC = () => {
   const [urlInput, setUrlInput] = useState<string>("");
   const [isImagePreloaded, setIsImagePreloaded] = useState<boolean>(false);
 
-  const getData = async () => {
-    const newData = await fetch("gitdown/api/get");
-    const jsondata = await newData.json();
-    console.log(jsondata);
-  };
-  getData();
+  // const getData = async () => {
+  //   const newData = await fetch("gitdown/api/get");
+  //   const jsondata = await newData.json();
+  //   console.log(jsondata);
+  // };
+  // getData();
 
   const downRepo = (url: string) => {
     setLoading(true);
@@ -63,16 +63,17 @@ const App: React.FC = () => {
         setWarning(true);
       }
 
-      const githubAPI = `${
-        process.env.NEXT_PUBLIC_BASE_API
-      }?owner=${owner}&repo=${repo}&folder=${folder || ""}`;
-
+      // `${process.env.BTEB_URL}/${owner}/${repo}/contents/${folder}`,
+      // { headers: { "Content-Type": "application/json" } }
+      const githubAPI = `${process.env.NEXT_PUBLIC_BTEB_URL}/${owner}/${repo}/contents/${folder || ""}`;
+      // { headers: { "Content-Type": "application/json" } }`;
+      console.log(process.env.NEXT_PUBLIC_BTEB_URL);
       fetch(githubAPI, {
         method: "GET",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          authorization: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
+          // authorization: `${process.env.NEXT_PUBLIC_AUTH_KEY}`,
         },
       })
         .then((response) => response.json())
