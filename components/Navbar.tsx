@@ -1,20 +1,17 @@
-"use client"
-import { useEffect, useState } from 'react';
+"use client";
+import { useEffect, useState } from "react";
 // import { Link, useLocation } from 'react-router-dom'
-import HomeIcon from './icons/HomeIcon';
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-
-
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import HomeIcon from "./icons/HomeIcon";
 
 export const Navbar = () => {
-
-  const [isToggleOpen, setIsToggleOpen] = useState(false)
+  const [isToggleOpen, setIsToggleOpen] = useState(false);
   const handleScrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const currentPath = usePathname()
+  const currentPath = usePathname();
 
   useEffect(() => {
     setIsToggleOpen(false);
@@ -22,10 +19,8 @@ export const Navbar = () => {
 
   useEffect(() => {
     // Add or remove 'overflow-hidden' class based on the isToggleOpen state
-    document.body.classList.toggle('overflow-hidden', isToggleOpen);
+    document.body.classList.toggle("overflow-hidden", isToggleOpen);
   }, [isToggleOpen]);
-
-
 
   return (
     <>
@@ -36,14 +31,13 @@ export const Navbar = () => {
             className="flex lg:inline h-[3.5rem] items-stretch justify-between font-medium text-slate-700"
             role="navigation"
           >
-
-
             {/*      <!-- Mobile trigger --> */}
             <button
               className={`relative order-10 block h-10 w-10 self-center lg:hidden
-                ${isToggleOpen
-                  ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(3)]:w-0 [&_span:nth-child(2)]:-rotate-45 "
-                  : ""
+                ${
+                  isToggleOpen
+                    ? "visible opacity-100 [&_span:nth-child(1)]:w-6 [&_span:nth-child(1)]:translate-y-0 [&_span:nth-child(1)]:rotate-45 [&_span:nth-child(3)]:w-0 [&_span:nth-child(2)]:-rotate-45 "
+                    : ""
                 }
               `}
               onClick={() => setIsToggleOpen(!isToggleOpen)}
@@ -66,16 +60,22 @@ export const Navbar = () => {
               </div>
             </button>
 
-
-            <div className='mx-auto flex justify-between items-center max-w-[960px]'>
-
+            <div className="mx-auto flex justify-between items-center max-w-[960px]">
               {/*      <!-- Brand logo --> */}
               <div>
                 <button>
-                  <Link href="/" onClick={handleScrollToTop} className={
-                    currentPath === '/gitdown/' ? "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none lg:hover:bg-gray-100/100 p-2 lg:rounded-md"
-                      :
-                      "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none transition duration-300 active:scale-90 lg:hover:bg-gray-100/100 p-2 lg:rounded-md"}>TechHelpBD <strong className="text-blue-500">|</strong> GitDown</Link>
+                  <Link
+                    href="/"
+                    onClick={handleScrollToTop}
+                    className={
+                      currentPath === "/"
+                        ? "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none lg:hover:bg-gray-100/100 p-2 lg:rounded-md"
+                        : "btn btn-ghost normal-case text-lg flex justify-center items-center gap-2 outline-none bg-transparent border-none transition duration-300 active:scale-90 lg:hover:bg-gray-100/100 p-2 lg:rounded-md"
+                    }
+                  >
+                    TechHelpBD <strong className="text-blue-500">|</strong>{" "}
+                    GitDown
+                  </Link>
                 </button>
               </div>
               {/*      <!-- Navigation links --> */}
@@ -83,61 +83,57 @@ export const Navbar = () => {
                 <ul
                   role="menubar"
                   aria-label="Select page"
-                  className={`absolute top-0 left-0 z-[-1]  w-full h-screen justify-center overflow-hidden  overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-24 font-medium transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0  lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0  lg:pt-0 lg:opacity-100 ${isToggleOpen
-                    ? "visible opacity-100 backdrop-blur-sm"
-                    : "invisible opacity-0"
-                    }`}
+                  className={`absolute top-0 left-0 z-[-1]  w-full h-screen justify-center overflow-hidden  overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-24 font-medium transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0  lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0  lg:pt-0 lg:opacity-100 ${
+                    isToggleOpen
+                      ? "visible opacity-100 backdrop-blur-sm"
+                      : "invisible opacity-0"
+                  }`}
                 >
                   <li role="none" className="flex items-stretch">
-                    <Link onClick={handleScrollToTop} href="/"
+                    <Link
+                      onClick={handleScrollToTop}
+                      href="/"
                       className={
-                        currentPath === '/gitdown/' ? "text-sky-500 lg:text-white lg:bg-sky-500 flex items-center gap-2 py-4 lg:px-3 lg:py-1 transition-colors duration-300 focus:outline-none focus-visible:outline-none  lg:rounded-lg lg:mx-5 my-1"
-
-                          :
-
-                          "lg:shadow flex items-center gap-2 lg:px-3 lg:py-1 py-4 transition duration-300 active:scale-90 lg:rounded-md lg:mx-5 my-1"
+                        currentPath === "/"
+                          ? "text-sky-500 lg:text-white lg:bg-sky-500 flex items-center gap-2 py-4 lg:px-3 lg:py-1 transition-colors duration-300 focus:outline-none focus-visible:outline-none  lg:rounded-lg lg:mx-5 my-1"
+                          : "lg:shadow flex items-center gap-2 lg:px-3 lg:py-1 py-4 transition duration-300 active:scale-90 lg:rounded-md lg:mx-5 my-1"
                       }
                       role="menuitem"
                       aria-haspopup="false"
                     >
-                      <span className='hidden lg:block'>
+                      <span className="hidden lg:block">
                         <HomeIcon />
                       </span>
-                      <span className='lg:hidden block'>
-                        Home
-                      </span>
+                      <span className="lg:hidden block">Home</span>
                     </Link>
                   </li>
                   <li role="none" className="flex items-stretch">
                     <a
                       href="https://techhelpbd.com"
-                      target='blank'
+                      target="blank"
                       role="menuitem"
                       aria-current="page"
                       aria-haspopup="false"
                       className="lg:shadow flex items-center gap-2 lg:py-2 lg:px-4 transition duration-300 active:scale-90 lg:rounded-md lg:mx-5 my-1"
-
                     >
                       <span>Blog</span>
                     </a>
                   </li>
                   <li role="none" className="flex items-stretch">
-                    <Link href="/contact"
+                    <Link
+                      href="/contact"
                       role="menuitem"
                       aria-haspopup="false"
                       className={
-                        currentPath === '/gitdown/contact' || currentPath === '/gitdown/contact/' ? "text-sky-500 lg:text-white lg:bg-sky-500 flex items-center gap-2 py-4 transition-colors duration-300 focus:outline-none focus-visible:outline-none lg:py-2 lg:px-3   lg:rounded-md lg:mx-5 my-1"
-
-                          :
-
-                          "lg:shadow flex items-center py-4 lg:px-3 lg:py-2 transition duration-300 active:scale-90 lg:rounded-md lg:mx-5 my-1"
+                        currentPath === "/contact" ||
+                        currentPath === "/contact/"
+                          ? "text-sky-500 lg:text-white lg:bg-sky-500 flex items-center gap-2 py-4 transition-colors duration-300 focus:outline-none focus-visible:outline-none lg:py-2 lg:px-3   lg:rounded-md lg:mx-5 my-1"
+                          : "lg:shadow flex items-center py-4 lg:px-3 lg:py-2 transition duration-300 active:scale-90 lg:rounded-md lg:mx-5 my-1"
                       }
-
                     >
                       <span>Feedback</span>
                     </Link>
                   </li>
-
                 </ul>
               </div>
             </div>
@@ -145,5 +141,5 @@ export const Navbar = () => {
         </div>
       </header>
     </>
-  )
-}
+  );
+};
