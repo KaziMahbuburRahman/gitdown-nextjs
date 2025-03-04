@@ -3,22 +3,44 @@
 import Image from "next/image";
 import Link from "next/link";
 import ArrowUp from "./icons/ArrowUp";
+import { useEffect, useState } from "react";
 const Footer = () => {
+  const [showButton, setShowButton] = useState(false);
   const handleScroll = () => {
+    // Show button when scrolled 100px down
+    if (window.scrollY > 100) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScrollToTop = () => {
     window.scrollTo({
-      top: 0, // Scroll to the top of the page
-      behavior: "smooth", // Enables smooth scrolling
+      top: 0, 
+      behavior: "smooth", 
     });
   };
   return (
     <>
-      <div
+      {
+        showButton && <div
         id="icon-box"
-        className="bg-[#c01d2e] text-white p-3 rounded-full hover:bg-black hover:text-white cursor-pointer fixed lg:bottom-2 bottom-2 right-6 flex justify-center items-center"
-        onClick={handleScroll}
+        className={`bg-sky-500 text-white p-3 rounded-full hover:bg-black hover:text-white cursor-pointer fixed lg:bottom-2 bottom-2 right-6 flex justify-center items-center transition-all duration-500 transform ${
+          showButton ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+        }`}
+        onClick={handleScrollToTop}
       >
         <ArrowUp />
       </div>
+      }
       <footer className="w-full mt-5 text-gray-200">
         {/*    <!-- Main footer --> */}
         <div className="pt-16 pb-12 text-sm border-t border-gray-600 bg-[#3d4451]">
