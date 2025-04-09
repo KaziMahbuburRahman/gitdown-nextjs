@@ -3,20 +3,11 @@ import DownloadIcon from "@/components/icons/DownloadIcon";
 import FileIcon from "@/components/icons/FileIcon";
 import FolderIcon from "@/components/icons/FolderIcon";
 import LoadingIcon from "@/components/icons/LoadingIcon";
+import { FileItem } from "@/types";
 import JSZip from "jszip";
 import Image from "next/image";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-
-interface FileItem {
-  type: "file" | "dir";
-  name: string;
-  download_url?: string;
-  url?: string;
-  _links?: {
-    html: string;
-  };
-}
 
 declare global {
   interface Window {
@@ -72,7 +63,7 @@ const App: React.FC = () => {
         process.env.NEXT_PUBLIC_BTEB_URL
       }/${owner}/${repo}/contents/${folder || ""}`;
       // { headers: { "Content-Type": "application/json" } }`;
-      console.log(process.env.NEXT_PUBLIC_BTEB_URL);
+      // console.log(process.env.NEXT_PUBLIC_BTEB_URL);
       fetch(githubAPI, {
         method: "GET",
         headers: {
@@ -592,7 +583,9 @@ const App: React.FC = () => {
                           <FolderIcon />
                           <a
                             className="flex cursor-pointer hover:text-sky-500"
-                            onClick={() => item._links?.html && downRepo(item._links.html)}
+                            onClick={() =>
+                              item._links?.html && downRepo(item._links.html)
+                            }
                           >
                             {" "}
                             {item.name}
